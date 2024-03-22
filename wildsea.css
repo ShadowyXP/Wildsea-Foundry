@@ -1,0 +1,12 @@
+.wildsea.sheet.item form {
+  display: flex;
+  flex-direction: column;
+}
+.wildsea.sheet.item .sheet-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.wildsea.sheet.item .sheet-content .editor {
+  height: 100%;
+}

@@ -1,0 +1,18 @@
+<form class="{{cssClass}}" autocomplete="off">
+	<header class="sheet-header">
+		<div class="header-fields">
+			<h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder = "Name"/></h1>
+		</div>
+	</header>
+	<section class="sheet-body">
+		<div class="track-attributes" data-group="primary">
+			<p class="track-attribute"><input name="system.length" type="text" value="{{system.length}}" placeholder="Enter the track length here." data-dtype="Number"/></p>
+			{{!-- This will be the partial which handles the track --}}
+			{{> "systems/wildsea/templates/partials/track-display.hbs" system}}
+			<div class="description" data-group="primary" data-tab="description">
+				{{editor system.notes target="system.notes" rollData=rollData button=true owner=owner editable=editable}}
+			</div>
+
+		</div>
+	</section>
+</form>
