@@ -7,6 +7,8 @@
 	<section class="sheet-body">
 		<div class="track-attributes" data-group="primary">
 			<p class="track-attribute"><input name="system.length" type="text" value="{{system.length}}" placeholder="Enter the track length here." data-dtype="Number"/></p>
+			<p class="track-attribute"><input name="system.marks" type="text" value="{{system.marks}}" placeholder="Enter the number of marks here" data-dtype="Number"/></p>
+			<p class="track-attribute"><input name="system.burns" type="text" value="{{system.burns}}" placeholder="Enter the number of burns here." data-dtype="Number"/></p>
 			{{!-- This will be the partial which handles the track --}}
 			{{> "systems/wildsea/templates/partials/track-display.hbs" system}}
 			<div class="description" data-group="primary" data-tab="description">

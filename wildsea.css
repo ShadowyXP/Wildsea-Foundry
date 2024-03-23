@@ -9,4 +9,12 @@
 }
 .wildsea.sheet.item .sheet-content .editor {
   height: 100%;
+  min-height: 70px;
+}
+.wildsea .track-display {
+  font-size: 0px;
+}
+.wildsea .track-display img {
+  border-width: 0;
+  padding: 0px !important;
 }

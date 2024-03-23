@@ -8,7 +8,8 @@
 		"track":{
 			"name": "New Track",
 			"length": 3,
-			"progress": 0,
+			"marks": 1,
+			"burns": 1,
 			"breaks":[],
 			"notes": "Enter Notes Here"
 		},

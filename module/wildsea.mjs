@@ -5,6 +5,16 @@ import { WildseaItemSheet } from "./sheets/item-sheet.mjs";
 //Importing our configs
 import { WILDSEA } from "./helpers/config.mjs";
 
+async function preloadHandlebarsTemplates() {
+	const templatePaths = [
+		'systems/wildsea/templates/partials/track-display.hbs',	
+		'systems/wildsea/templates/item/item-track-sheet.hbs',
+		'systems/wildsea/templates/item/item-aspect-sheet.hbs',
+	];
+
+	return loadTemplates(templatePaths);
+};
+
 Hooks.once('init', function () {
 	game.wildsea = {
 		WildseaItem,
@@ -19,10 +29,6 @@ Hooks.once('init', function () {
 		makeDefault: true,
 	});
 
-	return loadTemplates([
-		'systems/wildsea/templates/item/item-track-sheet.hbs',
-		'systems/wildsea/templates/item/item-aspect-sheet.hbs',
-	]);
 
 	//This helper lets us repeat any html like a for loop.
 	//Which is FREAKING CRAZY! It's literally what i want for tracks.
@@ -35,4 +41,40 @@ Hooks.once('init', function () {
 
 		return result;
 	});
+
+
+	Handlebars.registerHelper("track", function (length, marks, burns, breaks, content) {
+
+		const emptyCellPath = 'systems/wildsea/icons/track/track-circle-empty.png';
+		const markedCellPath = 'systems/wildsea/icons/track/track-circle-marked.png';
+		const burnedCellPath= 'systems/wildsea/icons/track/track-circle-burned.png';
+		
+		let result = "";
+
+		for (let i = 0; i < content.data.root.system.length; i++){
+			//We assume its an empty cell
+			let path = emptyCellPath;
+			
+			//Unless there are marks, in which case, we want to add those.
+			if (i < content.data.root.system.marks) {
+				path = markedCellPath;
+			}
+
+			//Burns will overwrite marks.
+			if (i < content.data.root.system.burns) {
+				path = burnedCellPath;	
+			}
+
+			//Then we just add the cell based on what was used
+			result += `<img class=\"track-cell\" src=\"${path}\" height=\"24\">`;
+
+			//We dont want to add a sparator on the last one.
+			if (i != content.data.root.system.length - 1) {
+				result += "<img class=\"track-separator\" src=\"systems/wildsea/icons/track/track-separator.png\" height= \"24\">"
+			}
+		}
+		return result;
+	});
+
+	return preloadHandlebarsTemplates();
 });
