@@ -1,6 +1,8 @@
 //Importing our sheet.
-import { WildseaItem } from "./item/item.mjs"
+import { WildseaItem } from "./item/item.mjs";
 import { WildseaItemSheet } from "./sheets/item-sheet.mjs";
+import { WildseaActor } from "./actor/actor.mjs";
+import { WildseaActorSheet } from "./sheets/actor-sheet.mjs";
 
 //Importing our configs
 import { WILDSEA } from "./helpers/config.mjs";
@@ -24,11 +26,14 @@ Hooks.once('init', function () {
 	CONFIG.WILDSEA = WILDSEA;
 	CONFIG.Item.documentClass = WildseaItem;
 
+	Actors.unregisterSheet('core', ActorSheet);
+	Actors.registerSheet('wildsea', WildseaActorSheet, {
+		makeDefault: true,
+	});
 	Items.unregisterSheet('core', ItemSheet);
 	Items.registerSheet('wildsea', WildseaItemSheet, {
 		makeDefault: true,
 	});
-
 
 	//This helper lets us repeat any html like a for loop.
 	//Which is FREAKING CRAZY! It's literally what i want for tracks.
@@ -51,17 +56,17 @@ Hooks.once('init', function () {
 		
 		let result = "";
 
-		for (let i = 0; i < content.data.root.system.length; i++){
+		for (let i = 0; i < length; i++){
 			//We assume its an empty cell
 			let path = emptyCellPath;
 			
 			//Unless there are marks, in which case, we want to add those.
-			if (i < content.data.root.system.marks) {
+			if (i < marks) {
 				path = markedCellPath;
 			}
 
 			//Burns will overwrite marks.
-			if (i < content.data.root.system.burns) {
+			if (i < burns) {
 				path = burnedCellPath;	
 			}
 
@@ -69,7 +74,7 @@ Hooks.once('init', function () {
 			result += `<img class=\"track-cell\" src=\"${path}\" height=\"24\">`;
 
 			//We dont want to add a sparator on the last one.
-			if (i != content.data.root.system.length - 1) {
+			if (i != length - 1) {
 				result += "<img class=\"track-separator\" src=\"systems/wildsea/icons/track/track-separator.png\" height= \"24\">"
 			}
 		}

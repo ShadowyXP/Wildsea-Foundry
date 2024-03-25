@@ -1,23 +1,84 @@
 {
-	"Actor":{},
+	"Actor":{
+		"types": ["wildsailor"],
+		"windsailor": {
+			"name": "",
+			"player": "",
+			"bloodline": "",
+			"origin": "",
+			"post": "",
+			"bio": "",
+			"milestones": {
+				"major": "",
+				"minor": ""
+			},
+			"drives": "",
+			"edges": {
+				"grace": 0,
+				"iron": 0,
+				"instinct": 0,
+				"sharps": 0,
+				"teeth": 0,
+				"tides": 0,
+				"veils": 0
+			},
+			"skills": {
+				"brace": 0, 
+				"break": 0,
+				"concoct": 0,
+				"cook": 0,
+				"delve": 0,
+				"flourish": 0,
+				"hack": 0,
+				"harvest": 0,
+				"hunt": 0,
+				"outwit": 0,
+				"rattle": 0,
+				"scavenge": 0,
+				"sense": 0,
+				"study": 0,
+				"sway": 0,
+				"tend": 0,
+				"vault": 0,
+				"wavewalk": 0
+			},
+			"languages": {
+				"low_sour": 0,
+				"cthhonic": 0,
+				"sapreek": 0,
+				"gaudemm": 0,
+				"knock": 0,
+				"brasstongue": 0,
+				"raka_spit": 0,
+				"lyre_bite": 0,
+				"old_hand": 0,
+				"signalling": 0,
+				"highvin": 0
+			}
+		}
+	},
 	"Item":{
 		"types":[
-			"track",
-			"aspect"
+			"aspect",
+			"mire",
+			"gear"
 		],
-		"track":{
-			"name": "New Track",
-			"length": 3,
-			"marks": 1,
-			"burns": 1,
-			"breaks":[],
-			"notes": "Enter Notes Here"
-		},
 		"aspect":{
-			"name": "New Aspect",
-			"details": "Enter Details Here",
-			"aspect-type": "trait",
-			"track": ["track"]
+			"name": "",
+			"details": "",
+			"aspect_type": "",
+			"track_length": 3,
+			"track_marks": 0,
+			"track_burns": 0
+		},
+		"mire": {
+			"name": "",
+			"marks": 0
+		},
+		"gear": {
+			"name": "",
+			"amount": 1,
+			"gear_type": ""
 		}
 	}
 }

@@ -21,6 +21,7 @@ export class WildseaItemSheet extends ItemSheet {
 	get template() {
 		const path = 'systems/wildsea/templates/item'
 
+		console.log(this.item);
 		return  `${path}/item-${this.item.type}-sheet.hbs`;
 	}
 
@@ -34,7 +35,6 @@ export class WildseaItemSheet extends ItemSheet {
 
 		context.rollData = this.item.getRollData();
 
-
 		context.system = itemData.system;
 		context.flags = itemData.flags;
 
@@ -47,9 +47,27 @@ export class WildseaItemSheet extends ItemSheet {
 		if (!this.isEditable) return;
 
 		// We can register any listeners for the item sheet here.
-		// html.on('click', 'css class', (ev) =>
-		// 	 runFunction(ev, anythingelse)
-		// );
+		if (this.item.type == "track") {
+			this.registerTrackListeners(html);
+		// Right now else means aspect.
+		} else {
+			this.registerAspectListeners(html);
+		}
 	}
 
+	async registerAspectListeners(html){
+		html.on('click', '.track-display', (ev) => {
+			console.log('clicked aspect');
+			if (this.item.system.track_marks != this.item.system.track_length) {
+				this.item.update({'system.track_marks': this.item.system.track_marks + 1});
+			}
+		});
+
+		html.on('contextmenu', '.track-display', (ev) => {
+			console.log('right-clicked aspect');
+			if (this.item.system.track_marks != 0) {
+				this.item.update({'system.track_marks': this.item.system.track_marks - 1});
+			}
+		});
+	}
 }

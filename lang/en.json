@@ -1,7 +1,46 @@
 {
 	"WILDSEA": {
 		"Edge": {
-
+			"grace" : "Grace",
+			"iron": "Iron",
+			"instinct": "Instinct",
+			"sharps": "Sharps",
+			"teeth": "Teeth",
+			"tides": "Tides",
+			"veils": "Veils"
+		},
+		"Skill": {
+			"brace": "Brace",
+			"break": "Break",
+			"concoct": "Concoct",
+			"cook": "Cook",
+			"delve": "Delve",
+			"flourish": "Flourish",
+			"hack": "Hack",
+			"harvest": "Harvest",
+			"hunt": "Hunt",
+			"outwit": "Outwit",
+			"rattle": "Rattle",
+			"scavenge": "Scavenge",
+			"sense": "Sense",
+			"study": "Study",
+			"sway": "Sway",
+			"tend": "Tend",
+			"vault": "Vault",
+			"wavewalker": "Wavewalker"
+		},
+		"Language": {
+			"low_sour": "Low Sour",
+			"cthhonic": "Cthhonic",
+			"sapreek": "Sapreek",
+			"gaudemm": "Gaudemm",
+			"knock": "Knock",
+			"brasstongue": "Brasstongue",
+			"raka_spit": "Raka Spit",
+			"lyre_bite": "Lyre-Bite",
+			"old_hand": "Old Hand",
+			"signalling": "Signalling",
+			"highvin": "Highvin"
 		},
 		"AspectLabel": {
 			"trait": "Trait",
