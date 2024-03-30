@@ -1,0 +1,60 @@
+<label class="milestones-label">Milestones</label>
+<div class="milestones grid grid-2col">
+	<div class="milestone flex-row">
+		<label class="milestone-label">Major</label>
+		{{editor system.milestones.major target="system.milestones.major" rollData=rollData button=true owner=owner editable=editable}}
+	</div>
+	<div class="milestone flex-row">
+		<label class="milestone-label">Minor</label>
+		{{editor system.milestones.minor target="system.milestones.minor" rollData=rollData button=true owner=owner editable=editable}}
+	</div>
+</div>
+<div class="grid grid-2col">
+	<div class="narrative-left-bar flex-row">
+		<div class="drives">
+			<label class="drive-label">Drives</label>
+			{{editor system.drives target="system.drives" rollData=rollData button=true owner=owner editable=editable}}
+		</div>
+		<div class="mires">
+			<label class="mire-label">Mires</label>
+			<ol class="mires-list">
+				<li class="mire flexrow mire-header">
+					<div class="mire-name">{{localize 'Name'}}</div>
+					<div class="mire-track">{{localize 'Track'}}</div>
+					<div class="mire-controls">
+						<a
+							class="mire-control item-create"
+							data-action="create"
+							title="{{localize "DOCUMENT.Create" type="Mire"}}"
+							data-type="mire"
+						>
+							<i class="fas fa-plus"></i>
+							{{localize "DOCUMENT.New" type="Mire"}}
+						</a>
+					</div>
+				</li>
+				{{#each mires as |item id|}}
+				<li class='item flexrow' data-item-id='{{item._id}}'>
+					<h4>{{item.name}}</h4>
+					<div class="mire-track track-display">
+						{{#track 2 item.system.marks 0 [] false 16 "mire-track-img"}}
+						{{/track}}
+					</div>
+					<div class = 'item-controls'>
+						<a
+							class="item-control item-delete"
+							title="{{localize "DOCUMENT.DELETE" type="Mire"}}"
+						>
+						<i class='fas fa-trash'></i>
+						</a>
+					</div>
+				</li>
+				{{/each}}
+			</ol>
+		</div>
+	</div>
+	<div class="narrative-right-bar flex-row">
+		<label class="bio-label">Bio</label>
+		{{editor system.bio target="system.bio" rollData=rollData button=true owner=owner editable=editable}}
+	</div>
+</div>

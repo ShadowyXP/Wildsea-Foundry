@@ -1,0 +1,30 @@
+<ol class='salvage-list'>
+	<li class="salvage flexrow salvage-header">
+		<div class="salvage-name">{{localize 'Name'}}</div>
+		<div class="salvage-quantity">{{localize 'Quantity'}}</div>
+		<div class="salvage-controls">
+			<a
+				class="salvage-control item-create"
+				title="{{localize "DOCUMENT.Create" type="Gear"}}"
+				data-type="gear"
+				data-gear_type="salvage"
+			>
+				<i class="fas fa-plus"></i>
+				{{localize "DOCUMENT.New" type="gear"}}
+			</a>
+		</div>
+	</li>
+	{{#each salvage as |item id|}}
+	<li class="salvage flexrow" data-item-id="{{item._id}}">
+		<div class="salvage-name">
+			<img
+				src="{{item.img}}"
+				title="{{item.name}}"
+				width="24"
+				height="24"
+			/>
+			<h4>{{item.name}}</h4>
+		</div>
+	</li>
+	{{/each}}
+</ol>

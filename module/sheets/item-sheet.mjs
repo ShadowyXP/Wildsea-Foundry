@@ -57,14 +57,12 @@ export class WildseaItemSheet extends ItemSheet {
 
 	async registerAspectListeners(html){
 		html.on('click', '.track-display', (ev) => {
-			console.log('clicked aspect');
 			if (this.item.system.track_marks != this.item.system.track_length) {
 				this.item.update({'system.track_marks': this.item.system.track_marks + 1});
 			}
 		});
 
 		html.on('contextmenu', '.track-display', (ev) => {
-			console.log('right-clicked aspect');
 			if (this.item.system.track_marks != 0) {
 				this.item.update({'system.track_marks': this.item.system.track_marks - 1});
 			}

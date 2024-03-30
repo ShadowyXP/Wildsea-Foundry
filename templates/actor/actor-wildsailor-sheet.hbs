@@ -1,3 +1,45 @@
-<form class ="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+<form class ="{{cssClass}} {{actor.type}}" autocomplete="off">
+	<header class="sheet-header">
+		<img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="180" width="100"/>
+		<div class="header-fields">
+			<div class="flexrow">
+				<h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+			</div>
+			<div class="attributes grid grid-4col">
+				<div class="attribute flex-group-center">
+					<label for="system.bloodline" class="attribute-label">Bloodline</label>
+					<input type="text" name="system.bloodline" value="{{system.bloodline}}"/>
+				</div>
+				<div class="attribute flex-group-center">
+					<label for="system.player" class="attribute-label">Player</label>
+					<input type="text" name="system.player" value="{{system.player}}"/>
+				</div>
+				<div class="attribute flex-group-center">
+					<label for="system.origin" class="attribute-label">Origin</label>
+					<input type="text" name="system.origin" value="{{system.origin}}"/>
+				</div>
+				<div class="attribute flex-group-center">
+					<label for="system.post" class="attribute-label">Post</label>
+					<input type="text" name="system.post" value="{{system.post}}"/>
+				</div>
+			</div>
+		</div>
+	</header>
+	<nav class="sheet-tabs tabs" data-group="primary">
+		<a class="item" data-tab="narrative">Narrative</a>
+		<a class="item" data-tab="mechanics">Mechanics</a>
+		<a class="item" data-tab="gear">Gear</a>
+	</nav>
 
+	<section class="sheet-body">
+		<div class="tab narrative" data-group="primary" data-tab="narrative">
+			{{> "systems/wildsea/templates/partials/wildsailor-narrative-tab.hbs"}}
+		</div>
+		<div class="tab mechanics" data-group="primary" data-tab="mechanics">
+			{{> "systems/wildsea/templates/partials/wildsailor-mechanics-tab.hbs"}}
+		</div>
+		<div class="tab gear" data-group="primary" data-tab="gear">
+			{{> "systems/wildsea/templates/partials/wildsailor-gear-tab.hbs"}}
+		</div>
+	</section>
 </form>

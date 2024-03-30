@@ -1,0 +1,44 @@
+<div class="grid grid-5col">
+	{{!-- I think the grid-span-2 means that we want this div to span across two grid columns. --}}
+	<div class="grid-span-3">
+		<p>Test</p>
+	</div>
+	<aside class="sidebar grid-span-2">
+		<ol class="aspects-list">
+			<li class="aspect flexrow aspect-header">
+				<div class="aspect">{{localize 'Aspects'}}</div>
+				<div class="aspect-controls">
+					<a
+						class="aspect-control item-create"
+						data-action="create"
+						title="{{localize "DOCUMENT.Create" type="Aspect"}}"
+						data-type="aspect"
+						data-track_length="8"
+					>
+						<i class="fas fa-plus"></i>
+						{{localize "DOCUMENT.New" type="Aspect"}}
+					</a>
+				</div>
+			</li>
+			{{#each aspects as |item key|}}
+			<li class="item flex-group-center" data-item-id="{{item._id}}">
+				<h4 class="align-left">{{item.name}}</h4>
+				<div class="grid grid-4col">
+					<div class="aspect-track grid-span-3 track-display">
+						{{#track item.system.track_length item.system.track_marks item.system.track_burns [] true 15 "aspect-track-img"}}
+						{{/track}}
+					</div>
+					<div class = "item-controls">
+						<a
+							class="item-control item-delete align-right"
+							title="{{localize "DOCUMENT.DELETE" type="Aspect"}}"
+						>
+						<i class="fas fa-trash"></i>
+						</a>
+					</div>
+				</div>
+			</li>
+			{{/each}}
+		</div>
+	</aside>
+</div>

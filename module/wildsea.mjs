@@ -12,6 +12,9 @@ async function preloadHandlebarsTemplates() {
 		'systems/wildsea/templates/partials/track-display.hbs',	
 		'systems/wildsea/templates/item/item-track-sheet.hbs',
 		'systems/wildsea/templates/item/item-aspect-sheet.hbs',
+		'systems/wildsea/templates/partials/wildsailor-narrative-tab.hbs',
+		'systems/wildsea/templates/partials/wildsailor-mechanics-tab.hbs',
+		'systems/wildsea/templates/partials/wildsailor-gear-tab.hbs',
 	];
 
 	return loadTemplates(templatePaths);
@@ -48,13 +51,22 @@ Hooks.once('init', function () {
 	});
 
 
-	Handlebars.registerHelper("track", function (length, marks, burns, breaks, content) {
+	Handlebars.registerHelper("track", function (length, marks, burns, breaks, separators, img_size, css_class, content) {
 
 		const emptyCellPath = 'systems/wildsea/icons/track/track-circle-empty.png';
 		const markedCellPath = 'systems/wildsea/icons/track/track-circle-marked.png';
 		const burnedCellPath= 'systems/wildsea/icons/track/track-circle-burned.png';
-		
+		const emptySeparator = 'systems/wildsea/icons/track/track-separator-empty.png';
+		const trackSeparator = 'systems/wildsea/icons/track/track-separator.png';
+		const breakSeparator = 'systems/wildsea/icons/track/track-separator-break.png';
+
 		let result = "";
+
+		let css_class_derive = "track-separator"
+
+		if(css_class != ""){
+			css_class_derive += " " + css_class
+		}
 
 		for (let i = 0; i < length; i++){
 			//We assume its an empty cell
@@ -71,11 +83,25 @@ Hooks.once('init', function () {
 			}
 
 			//Then we just add the cell based on what was used
-			result += `<img class=\"track-cell\" src=\"${path}\" height=\"24\">`;
+			result += `<img class=\"${css_class_derive}\" src=\"${path}\" height=\"${img_size}\">`;
+
+			let separatorPath = trackSeparator;
+
+			if(separators === false) {
+				separatorPath = emptySeparator;
+			}
+
+			if(breaks.length != 0){
+				for (let j = 0; j < breaks.length; j++){
+					if(i === breaks[j]){
+						separatorPath = breakSeparator;
+					}
+				}
+			}
 
 			//We dont want to add a sparator on the last one.
 			if (i != length - 1) {
-				result += "<img class=\"track-separator\" src=\"systems/wildsea/icons/track/track-separator.png\" height= \"24\">"
+				result += `<img class=\"${css_class_derive}\" src=\"${separatorPath}\" height=\"${img_size}\">`
 			}
 		}
 		return result;
