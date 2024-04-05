@@ -16,15 +16,22 @@
 	</li>
 	{{#each salvage as |item id|}}
 	<li class="salvage flexrow" data-item-id="{{item._id}}">
-		<div class="salvage-name">
-			<img
-				src="{{item.img}}"
-				title="{{item.name}}"
-				width="24"
-				height="24"
-			/>
-			<h4>{{item.name}}</h4>
+		<div class="salvage-name flexrow">
+			<div class="salvage-image"> 
+				<img
+					src="{{item.img}}"
+					title="{{item.name}}"
+					width="24"
+					height="24"
+				/>
+			</div>
+			<h4 class="flex-group-left">{{item.name}}</h4>
 		</div>
+		<div class="salvage-quantity">
+			{{!-- Here we put a - and + button surrounding the quantity, allowing people to increase or decrease it respectively. --}}
+			{{!-- Just put a clicked listener in the sheet, and increase the image quantity this way. Check how pathfinder colors on hover. it looks nice! --}}
+		</div>
+
 	</li>
 	{{/each}}
 </ol>

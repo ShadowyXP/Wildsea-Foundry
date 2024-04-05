@@ -1,8 +1,7 @@
 {
 	"Actor":{
 		"types": ["wildsailor"],
-		"windsailor": {
-			"name": "",
+		"wildsailor": {
 			"player": "",
 			"bloodline": "",
 			"origin": "",
@@ -14,47 +13,71 @@
 			},
 			"drives": "",
 			"edges": {
-				"grace": 0,
-				"iron": 0,
-				"instinct": 0,
-				"sharps": 0,
-				"teeth": 0,
-				"tides": 0,
-				"veils": 0
+				"grace": { "value": 0 },
+				"iron": { "value": 0 },
+				"instinct": { "value": 0 },
+				"sharps": { "value": 0 },
+				"teeth": { "value": 0 },
+				"tides": { "value": 0 },
+				"veils": { "value": 0}
 			},
 			"skills": {
-				"brace": 0, 
-				"break": 0,
-				"concoct": 0,
-				"cook": 0,
-				"delve": 0,
-				"flourish": 0,
-				"hack": 0,
-				"harvest": 0,
-				"hunt": 0,
-				"outwit": 0,
-				"rattle": 0,
-				"scavenge": 0,
-				"sense": 0,
-				"study": 0,
-				"sway": 0,
-				"tend": 0,
-				"vault": 0,
-				"wavewalk": 0
+				"brace": { "value": 0 }, 
+				"break": { "value": 0 },
+				"concoct": { "value": 0 },
+				"cook": { "value": 0 },
+				"delve": { "value": 0 },
+				"flourish": { "value": 0 },
+				"hack": { "value": 0 },
+				"harvest": { "value": 0 },
+				"hunt": { "value": 0 },
+				"outwit": { "value": 0 },
+				"rattle": { "value": 0 },
+				"scavenge": { "value": 0 },
+				"sense": { "value": 0 },
+				"study": { "value": 0 },
+				"sway": { "value": 0 },
+				"tend": { "value": 0 },
+				"vault": { "value": 0 },
+				"wavewalk": { "value": 0 }
 			},
 			"languages": {
-				"low_sour": 0,
-				"cthhonic": 0,
-				"sapreek": 0,
-				"gaudemm": 0,
-				"knock": 0,
-				"brasstongue": 0,
-				"raka_spit": 0,
-				"lyre_bite": 0,
-				"old_hand": 0,
-				"signalling": 0,
-				"highvin": 0
+				"low_sour": { "value": 0 },
+				"cthhonic": { "value": 0 },
+				"sapreek": { "value": 0 },
+				"gaudemm": { "value": 0 },
+				"knock": { "value": 0 },
+				"brasstongue": { "value": 0 },
+				"raka_spit": { "value": 0 },
+				"lyre_bite": { "value": 0 },
+				"old_hand": { "value": 0 },
+				"signalling": { "value": 0 },
+				"highvin": { "value": 0 }
 			}
+		},
+		"Ship": {
+			"ratings": {
+				"armor": 0,
+				"seals": 0,
+				"speed": 0,
+				"saws": 0,
+				"stealth": 0,
+				"tilt": 0
+			},
+			"size": "",
+			"frame": "",
+			"hull": "",
+			"bite": "",
+			"engine": "",
+			"armaments": "",
+			"outriders": "",
+			"cargo": "",
+			"conditions": "",
+			"stakes": {
+				"total": 0,
+				"used": 0
+			},
+			"notes": ""
 		}
 	},
 	"Item":{
@@ -79,6 +102,16 @@
 			"name": "",
 			"amount": 1,
 			"gear_type": ""
+		},
+		"fitting": {
+			"fitting_type": "",
+			"description": ""
+		},
+		"undercrew": {
+			"track_length": 3,
+			"track_marks": 0,
+			"track_burns": 0,
+			"description": ""
 		}
 	}
 }

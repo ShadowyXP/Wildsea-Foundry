@@ -1,7 +1,40 @@
 <div class="grid grid-5col">
 	{{!-- I think the grid-span-2 means that we want this div to span across two grid columns. --}}
 	<div class="grid-span-3">
-		<p>Test</p>
+		<a class="flexcol roll-button align-center"><h2><b>Roll Pool</b></h2></a>
+		<div class= "grid grid-4col">
+			{{#each system.edges as |edge key|}}
+			<div class="edge flexrow">
+				<label class="edge-label">{{localize (concat "WILDSEA.Edge." key)}}</label>
+				<div class="track-display align-center">
+				{{#track 1 edge.value 0 [] false 15 (concat "edge-" key "-track-img repeated-track-img")}}
+				{{/track}}
+				</div>
+			</div>
+			{{/each}}
+		</div>
+		<div class="grid grid-3col">
+			{{#each system.skills as |skill key|}}
+			<div class="skill flexrow">
+				<label class="skill-label">{{localize (concat "WILDSEA.Skill." key)}}</label>
+				<div class="track-display align-center">
+				{{#track 3 skill.value 0 [] false 12 (concat "skill-" key "-track-img repeated-track-img")}}
+				{{/track}}
+				</div>
+			</div>
+			{{/each}}
+		</div>
+		<div class ="grid grid-3col">
+			{{#each system.languages as |language key|}}
+			<div class="language flexrow">
+				<label class="language-label">{{localize (concat "WILDSEA.Language." key)}}</label>
+				<div class="track-display align-center">
+				{{#track 3 language.value 0 [] false 12 (concat "language-" key "-track-img repeated-track-img")}}
+				{{/track}}
+				</div>
+			</div>
+			{{/each}}
+		</div>
 	</div>
 	<aside class="sidebar grid-span-2">
 		<ol class="aspects-list">
@@ -24,11 +57,17 @@
 			<li class="item flex-group-center" data-item-id="{{item._id}}">
 				<h4 class="align-left">{{item.name}}</h4>
 				<div class="grid grid-4col">
-					<div class="aspect-track grid-span-3 track-display">
+					<div class="aspect-track grid-span-3 track-display align-left">
 						{{#track item.system.track_length item.system.track_marks item.system.track_burns [] true 15 "aspect-track-img"}}
 						{{/track}}
 					</div>
 					<div class = "item-controls">
+						<a
+							class="item-control item-edit align-right"
+							title="{{localize "DOCUMENT.DELETE" type="Aspect"}}"
+						>
+						<i class="fas fa-edit"></i>
+						</a>
 						<a
 							class="item-control item-delete align-right"
 							title="{{localize "DOCUMENT.DELETE" type="Aspect"}}"

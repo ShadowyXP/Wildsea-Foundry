@@ -1,5 +1,22 @@
 {
 	"WILDSEA": {
+		"Wildsailor_Tabs": {
+			"narrative": "Narrative",
+			"mechanics": "Mechanics",
+			"gear": "Gear"
+		},
+		"Wildsailor_Attributes": {
+			"player": "Player",
+			"bloodline": "Bloodline",
+			"origin": "Origin",
+			"post": "Post",
+			"bio": "Biography",
+			"milestone": "Milestones",
+			"milestone_minor": "Minor",
+			"milestone_major": "Major",
+			"drive": "Drive",
+			"mires": "Mires"
+		},
 		"Edge": {
 			"grace" : "Grace",
 			"iron": "Iron",
@@ -27,7 +44,7 @@
 			"sway": "Sway",
 			"tend": "Tend",
 			"vault": "Vault",
-			"wavewalker": "Wavewalker"
+			"wavewalk": "Wavewalk"
 		},
 		"Language": {
 			"low_sour": "Low Sour",
@@ -49,8 +66,11 @@
 		},
 		"TYPE": {
 			"Item": {
-				"track": "Track",
-				"aspect": "Aspect"
+				"aspect": "Aspect",
+				"mire": "Mire",
+				"gear": "Gear",
+				"fitting": "Fitting",
+				"undercrew": "Undercrew"
 			}
 		}
 	}

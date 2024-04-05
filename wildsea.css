@@ -9,7 +9,7 @@
 }
 .wildsea.sheet.item .sheet-body .editor {
   height: 100%;
-  min-height: 15px;
+  min-height: 60px;
 }
 .wildsea .track-display {
   font-size: 0px;
@@ -173,6 +173,9 @@
   display: flex;
   flex-direction: column;
 }
+.wildsea.sheet.actor .sheet-header .roll-button {
+  font-size: 30px;
+}
 .wildsea.sheet.actor .sheet-body {
   height: 100%;
   display: flex;
@@ -186,4 +189,7 @@
 .wildsea.sheet.actor .sheet-body .tox-tinymce {
   height: 100%;
   min-height: 150px;
+}
+.dice-pool-extras .twist-true {
+  background: rgba(0, 255, 0, 0.2);
 }

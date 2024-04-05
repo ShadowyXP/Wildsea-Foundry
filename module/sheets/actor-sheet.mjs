@@ -1,5 +1,6 @@
 export class WildseaActorSheet extends ActorSheet {
 
+
 	static get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
 			classes: ['wildsea', 'sheet', 'actor'],
@@ -29,23 +30,13 @@ export class WildseaActorSheet extends ActorSheet {
 
 		this._prepareItems(context);
 
-		/*
-				<div class=column grid_4><h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1></div>
-		for (let [k, v] of Object.entries(context.system.edges)) {
-			v.label = game.il8n.localize(CONFIG.WILDSEA.edges[k]) ?? k;
-		}
-
-		for (let [k, v] of Object.entries(context.system.skills)) {
-			v.label = game.il8n.localize(CONFIG.WILDSEA.skills[k]) ?? k;
-		}
-
-		for (let [k,v] of Object.entries(context.system.languages)) {
-			v.label = game.il8n.localize(CONFIG.WILDSEA.languages[k]) ?? k;
-		}*/
-
 		context.rolldata = context.actor.getRollData();
+		context.edges = CONFIG.WILDSEA.Edges;
+		context.skills = CONFIG.WILDSEA.Skills;
+		context.languages = CONFIG.WILDSEA.Languages;
 
 		return context;
+
 	}
 
 	_prepareItems(context) {
@@ -68,11 +59,11 @@ export class WildseaActorSheet extends ActorSheet {
 			}
 
 			else if (i.type === 'gear') {
-				if (i.gear_type === 'salvage') {
+				if (i.system.gear_type === 'salvage') {
 					salvage.push(i);
-				} else if (i.gear_type === 'specimen') {
+				} else if (i.system.gear_type === 'specimen') {
 					specimens.push(i);
-				} else if (i.gear_type === 'whisper') {
+				} else if (i.system.gear_type === 'whisper') {
 					whispers.push(i);
 				} else {
 					charts.push(i);
@@ -112,6 +103,12 @@ export class WildseaActorSheet extends ActorSheet {
 		  li.slideUp(200, () => this.render(false));
 		});
 
+		html.on('click', '.item-edit', (ev) => {
+			const li = $(ev.currentTarget).parents('.item');
+			const item = this.actor.items.get(li.data('itemId'));
+			item.sheet.render(true);
+		});
+
 		html.on('click', '.mire-track-img', (ev) => {
 			const li = $(ev.currentTarget).parents('.track-display').parents('.item');
 			const item = this.actor.items.get(li.data('itemId'));
@@ -131,7 +128,7 @@ export class WildseaActorSheet extends ActorSheet {
 		html.on('click', '.aspect-track-img', (ev) => {
 			const li = $(ev.currentTarget).parents('.track-display').parents('.item');
 			const item = this.actor.items.get(li.data('itemId'));
-			if (item.system.marks != 2) {
+			if (item.system.track_marks != item.system.track_length) {
 				item.update({'system.track_marks': item.system.track_marks + 1});
 			}
 			console.log('clicked');
@@ -140,10 +137,151 @@ export class WildseaActorSheet extends ActorSheet {
 		html.on('contextmenu', '.aspect-track-img', (ev) => {
 			const li = $(ev.currentTarget).parents('.item');
 			const item = this.actor.items.get(li.data('itemId'));
-			if (item.system.marks != 0) {
+			if (item.system.track_marks != 0) {
 				item.update({'system.track_marks': item.system.track_marks -1 });
 			}
 		});
+
+		html.on('click', '.repeated-track-img', (ev) => {
+			let css_class = $(ev.currentTarget.classList)[1].split('-');
+			let property_clicked = css_class[1];
+			let category = css_class[0] + 's';
+
+			let data_item = this.actor.system[category];
+			let property_value = `system.${category}.${property_clicked}.value`;
+
+			let value = data_item[property_clicked].value;
+			let calculatedValue;
+
+			if(category === 'edges'){
+				calculatedValue = (value + 1 > 1) ? 1 : value + 1
+			} else {
+				calculatedValue = (value + 1 > 3) ? 3 : value + 1
+			}
+			
+			this.actor.update({[property_value]: calculatedValue})
+		});
+
+		html.on('contextmenu', '.repeated-track-img', (ev) => {
+			let css_class = $(ev.currentTarget.classList)[1].split('-');
+			let property_clicked = css_class[1];
+			let category = css_class[0] + 's';
+
+			let data_item = this.actor.system[category];
+			let property_value = `system.${category}.${property_clicked}.value`;
+
+			let value = data_item[property_clicked].value;
+			let calculated = (value - 1 < 0) ? 0 : value - 1;
+
+			this.actor.update({[property_value]: calculated})
+		});
+
+		html.on('click', '.roll-button', (ev) => {
+			console.log(html);
+			this._createRollDialog(ev);
+		});
+	}
+
+	async _createRollDialog(ev) {
+		const context = {};
+
+		context.edges = CONFIG.WILDSEA.Edges;
+		context.skills = CONFIG.WILDSEA.Skills;
+		context.languages = CONFIG.WILDSEA.Languages;
+		context.advantage = {value: 0};
+		context.selectors = {
+			edge: "",
+			skill: ""
+		};
+
+		const myContent = await renderTemplate("systems/wildsea/templates/partials/roll-dialog.hbs", context);
+
+		const myDialog = new Dialog({
+			title: "Roll",
+			content: myContent,
+			buttons: {
+				button1: {
+					label: "Roll!",
+					callback: (html) => this._rollPool(html)
+				}
+			},
+			default: "button1"
+		}).render(true);
+	}
+
+	async _rollPool(html) {
+		let edge_selected = $(html.find('[name="edgeSelection"]'))[0].selectedOptions[0].value;
+		let skill_category = $(html.find('[name="skillSelection"]'))[0].selectedOptions[0].parentNode.attributes[0].nodeValue;
+		let skill_selected = $(html.find('[name="skillSelection"]'))[0].selectedOptions[0].value;
+		let advantage = $(html.find('[name="advantage"]'))[0].value;
+		let cut = $(html.find('[name="cut"]'))[0].value;
+
+		if (cut < 0) {
+			//TODO Put an error here!
+			//I dont know how to do that yet.
+			return;
+		}
+		
+		const context = super.getData();
+
+		const actorData = context.data;
+
+		context.system = actorData.system;
+
+		let edge_dice = context.system.edges[edge_selected].value;
+		let skill_dice = context.system[skill_category][skill_selected].value;
+
+		let total_dice = edge_dice + skill_dice + parseInt(advantage);
+		
+		let roll_formula = ""
+
+		if(cut > 0){
+			roll_formula = `${total_dice}d6dh${cut}kh` 
+		} else {
+			roll_formula = `${total_dice}d6kh`
+		}
+		let r = new Roll(roll_formula);
+
+		await r.evaluate();
+
+		let dice_results = r.terms[0].results;
+		
+		console.log(dice_results);
+		
+		let dupe_array = []
+
+		let twist = false;
+
+		for (const result of dice_results) {
+			let isInArray = dupe_array.indexOf(result.result);
+			if(isInArray != -1){
+				twist = true;
+				break;
+			}
+
+			dupe_array.push(result.result);
+		}
+
+		let roll_total = r.total;
+
+		let renderedRoll = await r.render();
+
+		const rollcontext = {};
+		rollcontext.twist = twist;
+
+		const specialRollData = await renderTemplate("systems/wildsea/templates/roll/dice-pool-roll.hbs", rollcontext);
+
+		let messageContent = renderedRoll + specialRollData;
+
+		let messageData= {
+			speaker: ChatMessage.getSpeaker(),
+			content: messageContent
+		}
+
+		r.toMessage(messageData);
+		//We have whether the roll has a twist 
+		//And the result, now we just need to display to chat.
+
 	}
 
 	async _onItemCreate(event){
@@ -166,3 +304,4 @@ export class WildseaActorSheet extends ActorSheet {
 		return await Item.create(itemData, { parent: this.actor });
 	}
 }
+

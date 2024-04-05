@@ -15,6 +15,7 @@ async function preloadHandlebarsTemplates() {
 		'systems/wildsea/templates/partials/wildsailor-narrative-tab.hbs',
 		'systems/wildsea/templates/partials/wildsailor-mechanics-tab.hbs',
 		'systems/wildsea/templates/partials/wildsailor-gear-tab.hbs',
+		'templates/dice/roll.html'
 	];
 
 	return loadTemplates(templatePaths);
@@ -28,6 +29,7 @@ Hooks.once('init', function () {
 
 	CONFIG.WILDSEA = WILDSEA;
 	CONFIG.Item.documentClass = WildseaItem;
+	CONFIG.Actor.documentClass = WildseaActor;
 
 	Actors.unregisterSheet('core', ActorSheet);
 	Actors.registerSheet('wildsea', WildseaActorSheet, {
@@ -61,6 +63,10 @@ Hooks.once('init', function () {
 		const breakSeparator = 'systems/wildsea/icons/track/track-separator-break.png';
 
 		let result = "";
+
+		if (typeof marks === 'string') {
+			
+		}
 
 		let css_class_derive = "track-separator"
 
