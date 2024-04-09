@@ -190,6 +190,18 @@
   height: 100%;
   min-height: 150px;
 }
+.wildsea.sheet.actor .sheet-body .item-quantity-update {
+  display: inline;
+}
+.wildsea.sheet.actor .sheet-body .item-quantity {
+  display: inline;
+}
+.wildsea.sheet.actor .sheet-body .milestones {
+  padding-bottom: 10px;
+}
 .dice-pool-extras .twist-true {
   background: rgba(0, 255, 0, 0.2);
+}
+ol li {
+  list-style-type: none;
 }

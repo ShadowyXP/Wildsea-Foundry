@@ -72,6 +72,12 @@
 				"fitting": "Fitting",
 				"undercrew": "Undercrew"
 			}
+		},
+		"GearType": {
+			"salvage": "Salvage",
+			"specimen": "Specimen",
+			"whisper": "Whispers",
+			"chart": "Chart"
 		}
 	}
 }

@@ -37,6 +37,8 @@ export class WildseaItemSheet extends ItemSheet {
 
 		context.system = itemData.system;
 		context.flags = itemData.flags;
+		context.gearTypes = CONFIG.WILDSEA.GearTypes;
+		context.aspectTypes = CONFIG.WILDSEA.AspectTypes;
 
 		return context;
 	}

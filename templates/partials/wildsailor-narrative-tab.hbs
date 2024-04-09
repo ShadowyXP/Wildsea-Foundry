@@ -1,27 +1,28 @@
-<label class="milestones-label">{{localize 'WILDSEA.Wildsailor_Attributes.milestone'}}</label>
+<h3 class="milestones-label">{{localize 'WILDSEA.Wildsailor_Attributes.milestone'}}</h3>
 <div class="milestones grid grid-2col">
 	<div class="milestone flex-row">
-		<label class="milestone-label">{{localize 'WILDSEA.Wildsailor_Attributes.milestone_major'}}</label>
+		<h4 class="milestone-h4">{{localize 'WILDSEA.Wildsailor_Attributes.milestone_major'}}</h4>
 		{{editor system.milestones.major target="system.milestones.major" rollData=rollData button=true owner=owner editable=editable}}
 	</div>
 	<div class="milestone flex-row">
-		<label class="milestone-label">{{localize 'WILDSEA.Wildsailor_Attributes.milestone_minor'}}</label>
+		<h4 class="milestone-h4">{{localize 'WILDSEA.Wildsailor_Attributes.milestone_minor'}}</h4>
 		{{editor system.milestones.minor target="system.milestones.minor" rollData=rollData button=true owner=owner editable=editable}}
 	</div>
 </div>
 <div class="grid grid-2col">
 	<div class="narrative-left-bar flex-row">
 		<div class="drives">
-			<label class="drive-label">{{localize 'WILDSEA.Wildsailor_Attributes.drive'}}</label>
+			<h3 class="drive-h3">{{localize 'WILDSEA.Wildsailor_Attributes.drive'}}</h3>
 			{{editor system.drives target="system.drives" rollData=rollData button=true owner=owner editable=editable}}
+
 		</div>
 		<div class="mires">
-			<label class="mire-label">{{localize 'WILDSEA.Wildsailor_Attributes.mires'}}</label>
+			<h3 class="mire-h3">{{localize 'WILDSEA.Wildsailor_Attributes.mires'}}</h3>
 			<ol class="mires-list">
-				<li class="mire flexrow mire-header">
-					<div class="mire-name">{{localize 'Name'}}</div>
-					<div class="mire-track">{{localize 'Track'}}</div>
-					<div class="mire-controls">
+				<li class="mire grid grid-6col mire-header">
+					<div class="mire-name grid-span-3">{{localize 'Name'}}</div>
+					<div class="mire-track grid-span-1">{{localize 'Track'}}</div>
+					<div class="mire-controls grid-span-2">
 						<a
 							class="mire-control item-create"
 							data-action="create"
@@ -34,15 +35,15 @@
 					</div>
 				</li>
 				{{#each mires as |item id|}}
-				<li class='item flexrow' data-item-id='{{item._id}}'>
-					<h4>{{item.name}}</h4>
+				<li class='item grid grid-4col' data-item-id='{{item._id}}'>
+					<input class="mire-name grid-span-2" type="text" name="item.name" value="{{item.name}}"/>
 					<div class="mire-track track-display">
 						{{#track 2 item.system.marks 0 [] false 16 "mire-track-img"}}
 						{{/track}}
 					</div>
 					<div class = 'item-controls'>
 						<a
-							class="item-control item-delete"
+							class="item-control item-delete align-left"
 							title="{{localize "DOCUMENT.DELETE" type="Mire"}}"
 						>
 						<i class='fas fa-trash'></i>
@@ -54,7 +55,7 @@
 		</div>
 	</div>
 	<div class="narrative-right-bar flex-row">
-		<label class="bio-label">{{localize 'WILDSEA.Wildsailor_Attributes.bio'}}</label>
+		<h3 class="bio-h3">{{localize 'WILDSEA.Wildsailor_Attributes.bio'}}</h3>
 		{{editor system.bio target="system.bio" rollData=rollData button=true owner=owner editable=editable}}
 	</div>
 </div>

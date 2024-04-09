@@ -7,10 +7,14 @@
 	</header>
 	<section class="sheet-body">
 		<div class="aspect-attributes" data-group="primary">
+			<label class="aspect-attribute">Aspect Type</label>
+			<select class="aspect-type" name="system.aspect_type">
+				{{selectOptions aspectTypes selected=system.aspect_type localize=true}}
+			</select>
 			<label class="aspect-attribute">Track Length</label>
 			<input name="system.track_length" type="text" value="{{system.track_length}}" placeholder="Track Length Here" data-dtype="Number"/>
 			<div class="description" data-group="primary" data-tab="description">
-				{{editor system.notes target="system.notes" rollData=rollData button=true owner=owner editable=editable}}
+				{{editor system.details target="system.details" rollData=rollData button=true owner=owner editable=editable}}
 			</div>
 			<div class="track-display">
 				{{#track system.track_length system.track_marks system.track_burns [] true 24 ""}}

@@ -6,6 +6,13 @@ WILDSEA.AspectTypes = {
 	companion: "WILDSEA.AspectLabel.companion",
 };
 
+WILDSEA.GearTypes = {
+	salvage: "WILDSEA.GearType.salvage",
+	specimen: "WILDSEA.GearType.specimen",
+	whisper: "WILDSEA.GearType.whisper",
+	chart: "WILDSEA.GearType.chart",
+};
+
 WILDSEA.Edges = {
 	grace : "WILDSEA.Edge.grace",
 	iron: "WILDSEA.Edge.iron",

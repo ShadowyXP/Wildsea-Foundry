@@ -1,11 +1,11 @@
-<div class="roll-dialogue grid grid-2col">
-	<div class="edges-selection flexrow grid-span-2">
-		<label class="edges-label"><b>Select Edge<b></label>
+<div class="roll-dialog">
+	<div class="dialog-option edges-selection flexrow grid grid-2col">
+		<label class="edges-label"><b>Select Edge</b></label>
 		<select name="edgeSelection">
 			{{selectOptions edges localize=true}}
 		</select>
 	</div>
-	<div class="skills-selection flexrow grid-span-2">
+	<div class="dialog-option skills-selection flexrow grid grid-2col">
 		<label class="skills-label"><b>Select Skill/Language</b></label>
 		<select name="skillSelection">
 			<optgroup data="skills" label="Skills">
@@ -16,12 +16,12 @@
 			</optgroup>
 		</select>
 	</div>
-	<div class="advantage-input flexrow grid-span-2">
-		<label class="advantage-label"><b>Enter Advantage</b></label>
-		<input class="advantage-value" name="advantage" type="range" value="0" min="0" max="2"></input>
+	<div class="dialog-option advantage-input flexrow grid grid-2col">
+		<label class="advantage-label justify-left"><b>Enter Advantage (0-2)</b></label>
+		<input class="advantage-value" name="advantage" type="Number" value="0" min="0" max="2"></input>
 	</div>
-	<div class="cut-input flexrow grid-span-2">
+	<div class="dialog-option cut-input flexrow grid grid-2col">
 		<label class="cut-label"><b>Enter Cut</b></label>
-		<input class="cut-value" name="cut" type="Number" value="0" min="0"></input>
+		<input class="cut-value justify-left" name="cut" type="Number" value="0" min="0"></input>
 	</div>
 </div>

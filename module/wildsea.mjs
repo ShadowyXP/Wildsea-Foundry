@@ -3,6 +3,7 @@ import { WildseaItem } from "./item/item.mjs";
 import { WildseaItemSheet } from "./sheets/item-sheet.mjs";
 import { WildseaActor } from "./actor/actor.mjs";
 import { WildseaActorSheet } from "./sheets/actor-sheet.mjs";
+import { WildseaRoll } from "./roll/wildsea-roll.mjs";
 
 //Importing our configs
 import { WILDSEA } from "./helpers/config.mjs";
@@ -24,12 +25,15 @@ async function preloadHandlebarsTemplates() {
 Hooks.once('init', function () {
 	game.wildsea = {
 		WildseaItem,
+		WildseaRoll,
 	};
 
 
 	CONFIG.WILDSEA = WILDSEA;
 	CONFIG.Item.documentClass = WildseaItem;
 	CONFIG.Actor.documentClass = WildseaActor;
+	console.log(CONFIG);
+	CONFIG.Dice.rolls.push(WildseaRoll);
 
 	Actors.unregisterSheet('core', ActorSheet);
 	Actors.registerSheet('wildsea', WildseaActorSheet, {

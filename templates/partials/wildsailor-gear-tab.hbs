@@ -1,4 +1,8 @@
-<ol class='salvage-list'>
+<div class="items-header">
+	
+</div>
+<ol class='salvage-list grid-span-4'>
+	<li><h3>Salvage</h3></li>
 	<li class="salvage flexrow salvage-header">
 		<div class="salvage-name">{{localize 'Name'}}</div>
 		<div class="salvage-quantity">{{localize 'Quantity'}}</div>
@@ -15,8 +19,8 @@
 		</div>
 	</li>
 	{{#each salvage as |item id|}}
-	<li class="salvage flexrow" data-item-id="{{item._id}}">
-		<div class="salvage-name flexrow">
+	<li class="salvage item flexrow" data-item-id="{{item._id}}">
+		<div class="salvage-name flexrow grid-span-2">
 			<div class="salvage-image"> 
 				<img
 					src="{{item.img}}"
@@ -25,13 +29,217 @@
 					height="24"
 				/>
 			</div>
-			<h4 class="flex-group-left">{{item.name}}</h4>
+			<h4 class="justify-left">{{item.name}}</h4>
 		</div>
-		<div class="salvage-quantity">
-			{{!-- Here we put a - and + button surrounding the quantity, allowing people to increase or decrease it respectively. --}}
-			{{!-- Just put a clicked listener in the sheet, and increase the image quantity this way. Check how pathfinder colors on hover. it looks nice! --}}
+		<div class="salvage-quantity quantity-handler justify-center">
+			<a
+				class="item-quantity-update item-quantity-decrease"
+				title="{{localize "Decrease Quantity by 1"}}"
+			>
+			-
+			</a>
+			<h4 class="salvage-quantity item-quantity">{{item.system.amount}}</h4>
+			<a
+				class="item-quantity-update item-quantity-increase"
+				title="{{localize "Increase Quantity by 1"}}"
+			>
+			+
+			</a>
 		</div>
-
+		<div class="item-controls">
+			<a
+				class="item-control item-delete"
+				title="{{localize "DOCUMENT.DELETE" type="Gear"}}"
+			>
+			<i class="fas fa-trash"></i>
+			</a>
+			<a
+				class="item-control item-edit"
+				title="{{localize "DOCUMENT.UPDATE" type="Gear"}}"
+			>
+			<i class="fas fa-edit"></i>
+			</a>
+		</div>
+	</li>
+	{{/each}}
+	<li><h3>Specimens</h3></li>
+	<li class="specimen flexrow specimen-header">
+		<div class="specimen-name">{{localize 'Name'}}</div>
+		<div class="specimen-quantity">{{localize 'Quantity'}}</div>
+		<div class="specimen-controls">
+			<a
+				class="specimen-control item-create"
+				title="{{localize "DOCUMENT.Create" type="Gear"}}"
+				data-type="gear"
+				data-gear_type="specimen"
+			>
+				<i class="fas fa-plus"></i>
+				{{localize "DOCUMENT.New" type="gear"}}
+			</a>
+		</div>
+	</li>
+	{{#each specimens as |item id|}}
+	<li class="specimen item flexrow" data-item-id="{{item._id}}">
+		<div class="specimen-name flexrow grid-span-2">
+			<div class="specimen-image"> 
+				<img
+					src="{{item.img}}"
+					title="{{item.name}}"
+					width="24"
+					height="24"
+				/>
+			</div>
+			<h4 class="justify-left">{{item.name}}</h4>
+		</div>
+		<div class="specimen-quantity quantity-handler justify-center">
+			<a
+				class="item-quantity-update item-quantity-decrease"
+				title="{{localize "Decrease Quantity by 1"}}"
+			>
+			-
+			</a>
+			<h4 class="specimen-quantity item-quantity">{{item.system.amount}}</h4>
+			<a
+				class="item-quantity-update item-quantity-increase"
+				title="{{localize "Increase Quantity by 1"}}"
+			>
+			+
+			</a>
+		</div>
+		<div class="item-controls">
+			<a
+				class="item-control item-delete"
+				title="{{localize "DOCUMENT.DELETE" type="Gear"}}"
+			>
+			<i class="fas fa-trash"></i>
+			</a>
+			<a
+				class="item-control item-edit"
+				title="{{localize "DOCUMENT.UPDATE" type="Gear"}}"
+			>
+			<i class="fas fa-edit"></i>
+			</a>
+		</div>
+	</li>
+	{{/each}}
+	<li><h3>Whispers</h3></li>
+	<li class="whisper flexrow whisper-header">
+		<div class="whisper-name">{{localize 'Name'}}</div>
+		<div class="whisper-quantity">{{localize 'Quantity'}}</div>
+		<div class="whisper-controls">
+			<a
+				class="whisper-control item-create"
+				title="{{localize "DOCUMENT.Create" type="Gear"}}"
+				data-type="gear"
+				data-gear_type="whisper"
+			>
+				<i class="fas fa-plus"></i>
+				{{localize "DOCUMENT.New" type="gear"}}
+			</a>
+		</div>
+	</li>
+	{{#each whispers as |item id|}}
+	<li class="whisper item flexrow" data-item-id="{{item._id}}">
+		<div class="whisper-name flexrow grid-span-2">
+			<div class="whisper-image"> 
+				<img
+					src="{{item.img}}"
+					title="{{item.name}}"
+					width="24"
+					height="24"
+				/>
+			</div>
+			<h4 class="justify-left">{{item.name}}</h4>
+		</div>
+		<div class="whisper-quantity quantity-handler justify-center">
+			<a
+				class="item-quantity-update item-quantity-decrease"
+				title="{{localize "Decrease Quantity by 1"}}"
+			>
+			-
+			</a>
+			<h4 class="whisper-quantity item-quantity">{{item.system.amount}}</h4>
+			<a
+				class="item-quantity-update item-quantity-increase"
+				title="{{localize "Increase Quantity by 1"}}"
+			>
+			+
+			</a>
+		</div>
+		<div class="item-controls">
+			<a
+				class="item-control item-delete"
+				title="{{localize "DOCUMENT.DELETE" type="Gear"}}"
+			>
+			<i class="fas fa-trash"></i>
+			</a>
+			<a
+				class="item-control item-edit"
+				title="{{localize "DOCUMENT.UPDATE" type="Gear"}}"
+			>
+			<i class="fas fa-edit"></i>
+			</a>
+		</div>
+	</li>
+	{{/each}}
+	<li><h3>Charts</h3></li>
+	<li class="chart flexrow chart-header">
+		<div class="chart-name">{{localize 'Name'}}</div>
+		<div class="chart-quantity">{{localize 'Quantity'}}</div>
+		<div class="chart-controls">
+			<a
+				class="chart-control item-create"
+				title="{{localize "DOCUMENT.Create" type="Gear"}}"
+				data-type="gear"
+				data-gear_type="chart"
+			>
+				<i class="fas fa-plus"></i>
+				{{localize "DOCUMENT.New" type="gear"}}
+			</a>
+		</div>
+	</li>
+	{{#each charts as |item id|}}
+	<li class="chart item flexrow" data-item-id="{{item._id}}">
+		<div class="chart-name flexrow grid-span-2">
+			<div class="chart-image"> 
+				<img
+					src="{{item.img}}"
+					title="{{item.name}}"
+					width="24"
+					height="24"
+				/>
+			</div>
+			<h4 class="justify-left">{{item.name}}</h4>
+		</div>
+		<div class="chart-quantity quantity-handler justify-center">
+			<a
+				class="item-quantity-update item-quantity-decrease"
+				title="{{localize "Decrease Quantity by 1"}}"
+			>
+			-
+			</a>
+			<h4 class="chart-quantity item-quantity">{{item.system.amount}}</h4>
+			<a
+				class="item-quantity-update item-quantity-increase"
+				title="{{localize "Increase Quantity by 1"}}"
+			>
+			+
+			</a>
+		</div>
+		<div class="item-controls">
+			<a
+				class="item-control item-delete"
+				title="{{localize "DOCUMENT.DELETE" type="Gear"}}"
+			>
+			<i class="fas fa-trash"></i>
+			</a>
+			<a
+				class="item-control item-edit"
+				title="{{localize "DOCUMENT.UPDATE" type="Gear"}}"
+			>
+			<i class="fas fa-edit"></i>
+			</a>
+		</div>
 	</li>
 	{{/each}}
 </ol>

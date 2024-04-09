@@ -1,7 +1,7 @@
 <div class="grid grid-5col">
 	{{!-- I think the grid-span-2 means that we want this div to span across two grid columns. --}}
 	<div class="grid-span-3">
-		<a class="flexcol roll-button align-center"><h2><b>Roll Pool</b></h2></a>
+		<h3 class="justify-center">Edges</h2>
 		<div class= "grid grid-4col">
 			{{#each system.edges as |edge key|}}
 			<div class="edge flexrow">
@@ -13,6 +13,7 @@
 			</div>
 			{{/each}}
 		</div>
+		<h3 class="justify-center">Skills</h2>
 		<div class="grid grid-3col">
 			{{#each system.skills as |skill key|}}
 			<div class="skill flexrow">
@@ -24,6 +25,7 @@
 			</div>
 			{{/each}}
 		</div>
+		<h3 class="justify-center">Languages</h2>
 		<div class ="grid grid-3col">
 			{{#each system.languages as |language key|}}
 			<div class="language flexrow">
@@ -37,9 +39,9 @@
 		</div>
 	</div>
 	<aside class="sidebar grid-span-2">
+		<h3>Aspects</h3>
 		<ol class="aspects-list">
 			<li class="aspect flexrow aspect-header">
-				<div class="aspect">{{localize 'Aspects'}}</div>
 				<div class="aspect-controls">
 					<a
 						class="aspect-control item-create"
@@ -47,6 +49,7 @@
 						title="{{localize "DOCUMENT.Create" type="Aspect"}}"
 						data-type="aspect"
 						data-track_length="8"
+						data-aspect_type="trait"
 					>
 						<i class="fas fa-plus"></i>
 						{{localize "DOCUMENT.New" type="Aspect"}}
@@ -55,7 +58,13 @@
 			</li>
 			{{#each aspects as |item key|}}
 			<li class="item flex-group-center" data-item-id="{{item._id}}">
-				<h4 class="align-left">{{item.name}}</h4>
+				<div class="aspect-header flexrow">
+					<h4 class="align-left aspect-name">{{item.name}}</h4>
+					<h4>{{localize (concat "WILDSEA.AspectLabel." item.system.aspect_type)}}</h4>
+				</div>
+				<div class="aspect-notes align-left" style="display: none;">
+					{{{item.system.details}}}
+				</div>
 				<div class="grid grid-4col">
 					<div class="aspect-track grid-span-3 track-display align-left">
 						{{#track item.system.track_length item.system.track_marks item.system.track_burns [] true 15 "aspect-track-img"}}
@@ -64,7 +73,7 @@
 					<div class = "item-controls">
 						<a
 							class="item-control item-edit align-right"
-							title="{{localize "DOCUMENT.DELETE" type="Aspect"}}"
+							title="{{localize "DOCUMENT.UPDATE" type="Aspect"}}"
 						>
 						<i class="fas fa-edit"></i>
 						</a>

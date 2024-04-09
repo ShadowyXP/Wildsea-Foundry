@@ -101,7 +101,8 @@
 		"gear": {
 			"name": "",
 			"amount": 1,
-			"gear_type": ""
+			"gear_type": "",
+			"gear_description": ""
 		},
 		"fitting": {
 			"fitting_type": "",

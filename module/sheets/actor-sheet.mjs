@@ -1,3 +1,5 @@
+import { WildseaRoll } from "/systems/wildsea/module/roll/wildsea-roll.mjs"
+
 export class WildseaActorSheet extends ActorSheet {
 
 
@@ -34,6 +36,8 @@ export class WildseaActorSheet extends ActorSheet {
 		context.edges = CONFIG.WILDSEA.Edges;
 		context.skills = CONFIG.WILDSEA.Skills;
 		context.languages = CONFIG.WILDSEA.Languages;
+		context.gearTypes = CONFIG.WILDSEA.GearTypes;
+		context.aspectTypes = CONFIG.WILDSEA.AspectTypes;
 
 		return context;
 
@@ -180,6 +184,41 @@ export class WildseaActorSheet extends ActorSheet {
 			console.log(html);
 			this._createRollDialog(ev);
 		});
+
+		html.on('click', '.item-quantity-update', (ev) => {
+			let li = $(ev.currentTarget).parents('.item')
+			const item = this.actor.items.get(li.data('itemId'));
+
+		
+			//Obviously we need to have the class gotten for whether its increase or decreaese, but i just want to check if it works.
+			let updatedValue = $(ev.currentTarget)[0].classList[1];
+			if (updatedValue === "item-quantity-increase") {
+				item.update({"system.amount": item.system.amount + 1});
+			} else {
+				//Ternary operator, if it would go under 0, just dont.
+				item.update({"system.amount": item.system.amount == 0 ? item.system.amount : item.system.amount - 1});
+			}
+		});
+		
+		html.on('click', '.aspect-name', (ev) => {
+			let description = $(ev.currentTarget.parentNode.parentNode).find('.aspect-notes');
+			console.log(description);
+			//I need it to star slid up and then slide down, not sure how to manage that.
+			if (description.is(":hidden")) {
+				description.slideDown();
+			} else {
+				description.slideUp();
+			}
+		});
+
+		//This allows the user to change the name of the mire without opening the item.
+		html.on('change', '.mire-name', (ev) => {
+			let li = $(ev.currentTarget).parents('.item');
+			const item = this.actor.items.get(li.data('itemId'));
+			const newVal = $(ev.currentTarget)[0].value;
+
+			item.update({"name": newVal });
+		});
 	}
 
 	async _createRollDialog(ev) {
@@ -205,7 +244,25 @@ export class WildseaActorSheet extends ActorSheet {
 					callback: (html) => this._rollPool(html)
 				}
 			},
-			default: "button1"
+			default: "button1",
+			render: (html) => {
+				html.on('change', 'input.advantage-value', (event) => {
+					let advantageValue = $(event.currentTarget)[0].value;
+					if(advantageValue > 2){
+						$(event.currentTarget)[0].value = 2;
+					} else if(advantageValue < 0 || advantageValue === ""){
+						$(event.currentTarget)[0].value = 0;
+					}
+				});
+				html.on('change', 'input.cut-value', (event) => {
+					let cutValue = $(event.currentTarget)[0].value;
+					//We just control for negative values and null because that breaks things.
+					//If they go over the number of dice in the roll, thats handled below.
+					if(cutValue < 0 || cutValue === "") {
+						$(event.currentTarget)[0].value = 0;
+					}
+				});
+			}
 		}).render(true);
 	}
 
@@ -216,12 +273,6 @@ export class WildseaActorSheet extends ActorSheet {
 		let advantage = $(html.find('[name="advantage"]'))[0].value;
 		let cut = $(html.find('[name="cut"]'))[0].value;
 
-		if (cut < 0) {
-			//TODO Put an error here!
-			//I dont know how to do that yet.
-			return;
-		}
-		
 		const context = super.getData();
 
 		const actorData = context.data;
@@ -234,53 +285,26 @@ export class WildseaActorSheet extends ActorSheet {
 		let total_dice = edge_dice + skill_dice + parseInt(advantage);
 		
 		let roll_formula = ""
-
 		if(cut > 0){
 			roll_formula = `${total_dice}d6dh${cut}kh` 
 		} else {
 			roll_formula = `${total_dice}d6kh`
 		}
-		let r = new Roll(roll_formula);
 
-		await r.evaluate();
+		//Special logic for cut being larger than the total dice.
+		if(cut > total_dice || total_dice == 0) {
+			roll_formula = '1d6';
 
-		let dice_results = r.terms[0].results;
-		
-		console.log(dice_results);
-		
-		let dupe_array = []
+			let wildseaRoll = new WildseaRoll(roll_formula);
 
-		let twist = false;
+			await wildseaRoll.toMessage(await wildseaRoll.render(await wildseaRoll.evaluate(parseInt(cut), true)));
 
-		for (const result of dice_results) {
-			let isInArray = dupe_array.indexOf(result.result);
-			if(isInArray != -1){
-				twist = true;
-				break;
-			}
-
-			dupe_array.push(result.result);
+			return;
 		}
 
-		let roll_total = r.total;
+		let wildseaRoll = new WildseaRoll(roll_formula);
 
-		let renderedRoll = await r.render();
-
-		const rollcontext = {};
-		rollcontext.twist = twist;
-
-		const specialRollData = await renderTemplate("systems/wildsea/templates/roll/dice-pool-roll.hbs", rollcontext);
-
-		let messageContent = renderedRoll + specialRollData;
-
-		let messageData= {
-			speaker: ChatMessage.getSpeaker(),
-			content: messageContent
-		}
-
-		r.toMessage(messageData);
-		//We have whether the roll has a twist 
-		//And the result, now we just need to display to chat.
+		await wildseaRoll.toMessage(await wildseaRoll.render(await wildseaRoll.evaluate(parseInt(cut), false)));
 
 	}
 
